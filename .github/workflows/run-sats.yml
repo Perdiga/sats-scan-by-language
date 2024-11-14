@@ -9,6 +9,10 @@ on:
 jobs:
   detect-languages:
     runs-on: ubuntu-latest
+    outputs:
+      javascript-detected: ${{ steps.detect.outputs.javascript-detected }}
+      python-detected: ${{ steps.detect.outputs.python-detected }}
+      other-detected: ${{ steps.detect.outputs.other-detected }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,6 +23,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           languages: 'JavaScript,Python'
+      
 
   scan:
     runs-on: ubuntu-latest
