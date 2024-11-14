@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  detect-languages:
+  scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -26,28 +26,15 @@ jobs:
           echo "Python detected: ${{ steps.detect.outputs.python-detected }}"
           echo "Other languages detected: ${{ steps.detect.outputs.other-detected }}"
 
-  scan:
-    runs-on: ubuntu-latest
-    needs: detect-languages
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Print Language Detection Results
-        run: |
-          echo "JavaScript detected: ${{ needs.detect-languages.outputs.javascript-detected }}"
-          echo "Python detected: ${{ needs.detect-languages.outputs.python-detected }}"
-          echo "Other languages detected: ${{ needs.detect-languages.outputs.other-detected }}"
-
       - name: Call CodeQL Scan Workflow for JavaScript
-        if: needs.detect-languages.outputs.javascript-detected == 'true'
+        if: steps.detect.outputs.javascript-detected == 'true'
         uses: ./.github/workflows/codeql.yml
 
       - name: Call CodeQL Scan Workflow for Python
-        if: needs.detect-languages.outputs.python-detected == 'true'
+        if: steps.detect.outputs.python-detected == 'true'
         uses: ./.github/workflows/trivy.yml
        
       - name: Handle Other Languages
-        if: needs.detect-languages.outputs.other-detected == 'true'
+        if: steps.detect.outputs.other-detected == 'true'
         run: |
           echo "Other languages detected in the repository. Customize this step to handle them."
