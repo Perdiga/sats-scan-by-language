@@ -1,17 +1,20 @@
 name: Detect Repository Languages
 description: Detects if specified languages are present in the repository and outputs flags for each.
-inputs:
-  languages:
-    description: 'Comma-separated list of languages to check (e.g., "TypeScript,Java")'
-    required: true
-    default: 'TypeScript,Java'
 outputs:
   javascript-detected:
     description: 'Whether JavaScript is present'
+  typescript-detected:
+    description: 'Whether TypeScript is present'
   java-detected:
     description: 'Whether Java is present'
   python-detected:
     description: 'Whether Python is present'
+  csharp-detected:
+    description: 'Whether CSharp is present'
+  kotlin-detected:
+    description: 'Whether Kotlin is present'
+  cpp-detected:
+    description: 'Whether Cpp is present'
   other-detected:
     description: 'Whether any other languages are present'
 runs:

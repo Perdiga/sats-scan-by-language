@@ -4,7 +4,15 @@ const github = require('@actions/github');
 async function run() {
   try {
     const token = core.getInput('GITHUB_TOKEN');
-    const languagesToCheck = core.getInput('languages').split(',').map(lang => lang.trim());
+    const languagesToCheck = [
+      'TypeScript',
+      'Java',
+      'Python',
+      'Kotlin',
+      'CSharp',
+      'JavaScript',
+      'Cpp'
+    ]
     const octokit = github.getOctokit(token);
 
     // Fetch languages used in the repository
@@ -22,7 +30,7 @@ async function run() {
     languagesToCheck.forEach(lang => {
       const detected = languages.hasOwnProperty(lang);
       core.setOutput(`${lang.toLowerCase()}-detected`, detected ? 'true' : 'false');
-      
+
       console.log(`${lang} detected: ${detected ? 'Yes' : 'No'}`);
     });
 
