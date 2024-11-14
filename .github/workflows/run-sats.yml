@@ -23,15 +23,13 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Debug Detected Languages
+      - name: Debug Detected scan flags
         run: |
-          echo "JavaScript detected: ${{ steps.detect.outputs.javascript-detected }}"
-          echo "Python detected: ${{ steps.detect.outputs.python-detected }}"
-          echo "Other languages detected: ${{ steps.detect.outputs.other-detected }}"
+          echo "Should run codeql: ${{ steps.detect.outputs.should-run-codeql }}"
+          echo "Should run trivy: ${{ steps.detect.outputs.should-run-trivy }}"
 
       - name: Call CodeQL Scan Workflow for JavaScript
-        if: steps.detect.outputs.javascript-detected == 'true'||
-            steps.detect.outputs.python-detected == 'true'        
+        if: steps.detect.outputs.should-run-codeql == 'true'      
         run: |
           curl -L \
             -X POST \
@@ -42,7 +40,7 @@ jobs:
             -d '{"ref":"main"}'
 
       - name: Call CodeQL Scan Workflow for Python
-        if: steps.detect.outputs.python-detected == 'true'
+        if: steps.detect.outputs.should-run-trivy == 'true'
         run: |
           curl -L \
             -X POST \
@@ -51,8 +49,3 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/${{ github.repository }}/actions/workflows/trivy.yml/dispatches \
             -d '{"ref":"main"}'
-       
-      - name: Handle Other Languages
-        if: steps.detect.outputs.other-detected == 'true'
-        run: |
-          echo "Other languages detected in the repository. Customize this step to handle them."

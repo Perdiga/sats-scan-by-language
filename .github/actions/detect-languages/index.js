@@ -4,15 +4,6 @@ const github = require('@actions/github');
 async function run() {
   try {
     const token = core.getInput('GITHUB_TOKEN');
-    const languagesToCheck = [
-      'TypeScript',
-      'Java',
-      'Python',
-      'Kotlin',
-      'CSharp',
-      'JavaScript',
-      'Cpp'
-    ]
     const octokit = github.getOctokit(token);
 
     // Fetch languages used in the repository
@@ -23,26 +14,23 @@ async function run() {
 
     console.log("Languages found in repository:", languages);
 
-    // Track detection results
-    let otherDetected = false;
+    core.setOutput('should-run-codeql', 'false');
+    core.setOutput('should-run-trivy', 'false');
 
-    // Check each specified language and set output flags
-    languagesToCheck.forEach(lang => {
-      const detected = languages.hasOwnProperty(lang);
-      core.setOutput(`${lang.toLowerCase()}-detected`, detected ? 'true' : 'false');
+    // Check if Java or JavaScript or Python is detected
+    if (languages.hasOwnProperty('Java') || 
+        languages.hasOwnProperty('Kotlin') ||
+        languages.hasOwnProperty('JavaScript') ||
+        languages.hasOwnProperty('TypeScript') ||
+        languages.hasOwnProperty('Python') ||
+        languages.hasOwnProperty('Csharp') ) {
+        core.setOutput('should-run-codeql', 'true');
+    } else if (languages.hasOwnProperty('Python')) {
+        core.setOutput('should-run-trivy', 'true');
+    }
 
-      console.log(`${lang} detected: ${detected ? 'Yes' : 'No'}`);
-    });
-
-    // Check for other languages
-    Object.keys(languages).forEach(lang => {
-      if (!languagesToCheck.includes(lang)) {
-        otherDetected = true;
-      }
-    });
-
-    // Set the other-detected output
-    core.setOutput('other-detected', otherDetected ? 'true' : 'false');
+    // Set the output variable based on detected language
+    
 
   } catch (error) {
     core.setFailed(error.message);
