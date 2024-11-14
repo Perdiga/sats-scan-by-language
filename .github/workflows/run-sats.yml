@@ -28,11 +28,19 @@ jobs:
 
       - name: Call CodeQL Scan Workflow for JavaScript
         if: steps.detect.outputs.javascript-detected == 'true'
-        uses: ./.github/workflows/codeql.yml
+        run: |
+          curl -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d '{"event_type": "codeql"}' \
+          https://api.github.com/repos/${{ github.repository }}/dispatches
 
       - name: Call CodeQL Scan Workflow for Python
         if: steps.detect.outputs.python-detected == 'true'
-        uses: ./.github/workflows/trivy.yml
+        run: |
+          curl -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d '{"event_type": "trivy"}' \
+          https://api.github.com/repos/${{ github.repository }}/dispatches
        
       - name: Handle Other Languages
         if: steps.detect.outputs.other-detected == 'true'
