@@ -17,6 +17,7 @@ jobs:
         id: detect
         uses: ./.github/actions/detect-languages
         with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           languages: 'JavaScript,Python'
 
   scan:
