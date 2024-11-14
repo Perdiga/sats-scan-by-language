@@ -13,6 +13,8 @@ async function run() {
       repo: github.context.repo.repo
     });
 
+    console.log("Languages found in repository:", languages);
+
     // Track detection results
     let otherDetected = false;
 
@@ -20,6 +22,8 @@ async function run() {
     languagesToCheck.forEach(lang => {
       const detected = languages.hasOwnProperty(lang);
       core.setOutput(`${lang.toLowerCase()}-detected`, detected ? 'true' : 'false');
+      
+      console.log(`${lang} detected: ${detected ? 'Yes' : 'No'}`);
     });
 
     // Check for other languages
