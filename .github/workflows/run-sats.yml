@@ -35,16 +35,15 @@ jobs:
         run: |
           curl -X POST \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d '{"event_type": "codeql-scan"}' \
-          https://api.github.com/repos/${{ github.repository }}/dispatches
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/codeql.yml/dispatches
+          
 
       - name: Call CodeQL Scan Workflow for Python
         if: steps.detect.outputs.python-detected == 'true'
         run: |
           curl -X POST \
           -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d '{"event_type": "trivy-scan"}' \
-          https://api.github.com/repos/${{ github.repository }}/dispatches
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/trivy.yml/dispatches
        
       - name: Handle Other Languages
         if: steps.detect.outputs.other-detected == 'true'
