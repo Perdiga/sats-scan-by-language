@@ -10,7 +10,6 @@ permissions:
   contents: read  # Required for checking code and triggering events
   actions: write  # Required for triggering workflows with repository_dispatch
 
-
 jobs:
   scan:
     runs-on: ubuntu-latest
