@@ -15,5 +15,5 @@ outputs:
   other-detected:
     description: 'Whether any other languages are present'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'index.js'

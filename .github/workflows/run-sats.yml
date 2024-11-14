@@ -17,7 +17,6 @@ jobs:
         id: detect
         uses: ./.github/actions/detect-languages
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           languages: 'JavaScript,Python'
 
   scan:
@@ -30,7 +29,7 @@ jobs:
       - name: Print Language Detection Results
         run: |
           echo "JavaScript detected: ${{ needs.detect-languages.outputs.javascript-detected }}"
-          echo "Python detected: ${{ needs.detect-languages.outputs..python-detected }}"
+          echo "Python detected: ${{ needs.detect-languages.outputs.python-detected }}"
           echo "Other languages detected: ${{ needs.detect-languages.outputs.other-detected }}"
 
       - name: Call CodeQL Scan Workflow for JavaScript
