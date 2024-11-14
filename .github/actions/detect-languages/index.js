@@ -25,7 +25,9 @@ async function run() {
         languages.hasOwnProperty('Python') ||
         languages.hasOwnProperty('Csharp') ) {
         core.setOutput('should-run-codeql', 'true');
-    } else if (languages.hasOwnProperty('Python')) {
+    } 
+    
+    if (languages.hasOwnProperty('Python')) {
         core.setOutput('should-run-trivy', 'true');
     }
 
