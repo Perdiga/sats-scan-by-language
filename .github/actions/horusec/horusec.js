@@ -12,7 +12,7 @@ module.exports = async function(executable, output) {
             '--output-format=sarif',
         ];
 
-        fs.copyFile( "horusec-config.json", "./",fs.constants.COPYFILE_EXCL)
+        //fs.copyFile( "horusec-config.json", "./",fs.constants.COPYFILE_EXCL)
         const subprocess = spawn(executable, args, { shell: true });
 
         // Log standard output in real-time
