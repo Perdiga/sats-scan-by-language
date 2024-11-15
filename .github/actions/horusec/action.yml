@@ -1,6 +1,6 @@
 name: Run horusec scan
 description: Runs Horusec scan on the repository.
-outputs:
+inputs:
   upload-to-ghas:
     description: 'Flag indicating if the results should be uploaded to GitHub Advanced Security.'
     required: false
