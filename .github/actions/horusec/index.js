@@ -27,15 +27,11 @@ async function run() {
             const raw = await read(output);
             const result = JSON.parse(raw);
 
-            console.log("before")
-            console.log(result)
             result.runs.forEach(run => {
                 run.results = run.results.filter(result => {
                     return result.ruleId != 'XXXXX' || result.ruleId != 'YYYYY';
                 });
             });
-            console.log("after")
-            console.log(result)
 
             //Save the modified SARIF file
             fs.writeFileSync(output, JSON.stringify(result));
