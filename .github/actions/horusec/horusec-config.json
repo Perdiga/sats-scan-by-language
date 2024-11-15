@@ -9,7 +9,8 @@
       "**/cmd/app/start/analysis/**",
       "**/tmp/**",
       "**/bin/**",
-      "**/internal/services/engines/**"
+      "**/internal/services/engines/**",
+      "**/node_modules/**"
     ],
     "horusecCliToolsConfig": {
       "Bandit": {
