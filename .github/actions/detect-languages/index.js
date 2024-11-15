@@ -31,7 +31,7 @@ async function run() {
         core.setOutput('should-run-trivy', 'true');
     }
 
-    if (languages.hasOwnProperty('Terraform')) {
+    if (languages.hasOwnProperty('HCL')) {
         core.setOutput('should-run-horusec', 'true');
     }
 
