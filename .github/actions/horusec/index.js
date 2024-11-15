@@ -17,6 +17,7 @@ async function run() {
         const executable = await download()
         const output = './result.sarif'
         try {
+            await fs.copyFile("horusec-config.json", "./horusec-config.json", fs.constants.COPYFILE_EXCL);
             await horusec(executable, output);
         } catch (err) {
             core.setFailed(err.message)
@@ -42,7 +43,7 @@ async function run() {
                 // await upload(github.context.repo.owner, github.context.repo.repo, output, 'Horusec Scan',github.context.ref, github.context.sha); 
                 await upload(github.context , output, 'Horusec Scan'); 
             }
-            fs.copyFile( "horusec-config.json", "./", fs.constants.COPYFILE_EXCL)
+            
             return result;
         }
     } catch (error) {
