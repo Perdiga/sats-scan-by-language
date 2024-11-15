@@ -22,7 +22,7 @@ module.exports = async function(githubContext, sarifFilePath,tool_name) {
       repo: githubContext.repo.repo,
       ref: githubContext.ref,
       sarif,
-      commitSha: githubContext.sha,
+      commit_sha: githubContext.sha,
       tool_name
     });
 
