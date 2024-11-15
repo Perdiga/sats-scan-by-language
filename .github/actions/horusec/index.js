@@ -38,7 +38,7 @@ async function run() {
             const uploadToGhas = core.getInput('upload-to-ghas');
             if (uploadToGhas) {
                 // You can upload the SARIF file to GitHub Advanced Security here          
-                upload.uploadSarif(github.context.repo.owner, github.context.repo.repo, output, 'Horusec Scan'); 
+                await upload(github.context.repo.owner, github.context.repo.repo, output, 'Horusec Scan'); 
             }
             
             return result;

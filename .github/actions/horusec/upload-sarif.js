@@ -1,7 +1,7 @@
 const github = require('@actions/github');
 const fs = require("fs");
 
-export async function uploadSarif(owner,repo,sarifFilePath,checkName) {
+module.exports = async function(owner,repo,sarifFilePath,checkName) {
   try {
     // Initialize Octokit
     const token = core.getInput(`github-token`, {required: true});
@@ -38,3 +38,4 @@ export async function uploadSarif(owner,repo,sarifFilePath,checkName) {
     console.error("Error uploading SARIF file:", error.message);
   }
 }
+
