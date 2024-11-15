@@ -1,28 +1,4 @@
 {
-  "horusecCliCertInsecureSkipVerify": false,
-  "horusecCliCertPath": "",
-  "horusecCliContainerBindProjectPath": "",
-  "horusecCliCustomImages": {
-    "c": "",
-    "csharp": "",
-    "elixir": "",
-    "generic": "",
-    "go": "",
-    "hcl": "",
-    "javascript": "",
-    "leaks": "",
-    "php": "",
-    "python": "",
-    "ruby": "",
-    "shell": ""
-  },
-  "horusecCliCustomRulesPath": "",
-  "horusecCliDisableDocker": false,
-  "horusecCliEnableCommitAuthor": false,
-  "horusecCliEnableGitHistoryAnalysis": false,
-  "horusecCliEnableInformationSeverity": false,
-  "horusecCliFalsePositiveHashes": [
-  ],
   "horusecCliFilesOrPathsToIgnore": [
     "**/e2e/**",
     "**/examples/**",
@@ -35,21 +11,6 @@
     "**/bin/**",
     "**/internal/services/engines/**"
   ],
-  "horusecCliHeaders": {},
-  "horusecCliHorusecApiUri": "http://0.0.0.0:8000",
-  "horusecCliJsonOutputFilepath": "",
-  "horusecCliMonitorRetryInSeconds": 10,
-  "horusecCliPrintOutputType": "",
-  "horusecCliProjectPath": "./",
-  "horusecCliRepositoryAuthorization": "00000000-0000-0000-0000-000000000000",
-  "horusecCliRepositoryName": "",
-  "horusecCliReturnErrorIfFoundVulnerability": true,
-  "horusecCliRiskAcceptHashes": [],
-  "horusecCliSeveritiesToIgnore": [],
-  "horusecCliShowVulnerabilitiesTypes": [
-  ],
-  "horusecCliTimeoutInSecondsAnalysis": 1000,
-  "horusecCliTimeoutInSecondsRequest": 300,
   "horusecCliToolsConfig": {
     "Bandit": {
       "istoignore": false
@@ -79,7 +40,7 @@
       "istoignore": false
     },
     "NpmAudit": {
-      "istoignore": false
+      "istoignore": true
     },
     "PhpCS": {
       "istoignore": false
@@ -103,26 +64,7 @@
       "istoignore": false
     },
     "YarnAudit": {
-      "istoignore": false
+      "istoignore": true
     }
-  },
-  "horusecCliWorkDir": {
-    "go": [],
-    "csharp": [],
-    "ruby": [],
-    "python": [],
-    "java": [],
-    "kotlin": [],
-    "javaScript": [],
-    "leaks": [],
-    "hcl": [],
-    "php": [],
-    "c": [],
-    "yaml": [],
-    "generic": [],
-    "elixir": [],
-    "shell": [],
-    "dart": [],
-    "nginx": []
   }
 }

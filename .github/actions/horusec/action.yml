@@ -1,0 +1,10 @@
+name: Run horusec scan
+description: Runs Horusec scan on the repository.
+outputs:
+  upload-to-ghas:
+    description: 'Flag indicating if the results should be uploaded to GitHub Advanced Security.'
+    required: true
+    default: 'true'
+runs:
+  using: 'node20'
+  main: 'index.js'
