@@ -3,8 +3,6 @@ const github = require('@actions/github');
 const {promisify} = require('util');
 
 const fs = require('fs');
-const subprocesses = require('child_process');
-const exec = promisify(subprocesses.exec)
 const exists = promisify(fs.exists)
 const read = promisify(fs.readFile)
 const copyFile = promisify(fs.copyFile)
@@ -43,7 +41,6 @@ async function run() {
             const uploadToGhas = core.getInput('upload-to-ghas');
             if (uploadToGhas) {
                 // You can upload the SARIF file to GitHub Advanced Security here          
-                // await upload(github.context.repo.owner, github.context.repo.repo, output, 'Horusec Scan',github.context.ref, github.context.sha); 
                 await upload(github.context , output, 'Horusec Scan'); 
             }
             
