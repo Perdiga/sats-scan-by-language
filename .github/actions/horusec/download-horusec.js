@@ -28,8 +28,6 @@ module.exports = async function () {
     const {data: {name, assets, created_at}} = await repos.getLatestRelease({owner, repo});
     core.info(`Using ${name} released at ${created_at}`)
 
-    console.log(assets.toString())
-
     if(platform == 'linux' && arch == 'x64') {arch = "amd64"}
 
     const asset = assets.find(({name}) => name.includes(`${platform}_${arch}`))

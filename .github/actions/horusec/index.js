@@ -10,13 +10,14 @@ const read = promisify(fs.readFile)
 
 const download = require('./download-horusec');
 const upload = require('./upload-sarif');
+const horusec = require('./horusec');
 
 async function run() {
     try{
         const executable = await download()
         const output = './result.sarif'
         try {
-            await exec(`${executable} start --json-output-file="${output}" --output-format="sarif"`)
+            await horusec(executable, output);
         } catch (err) {
             core.setFailed(err.message)
         }
