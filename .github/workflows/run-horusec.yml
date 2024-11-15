@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read  # Required for checking code and triggering events
   actions: write  # Required for triggering workflows with repository_dispatch
+  security-events: write
 
 jobs:
   scan:
