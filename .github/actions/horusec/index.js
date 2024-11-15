@@ -29,7 +29,8 @@ async function run() {
             const raw = await read(output);
             var result = JSON.parse(raw);
 
-            const issues = ['HS-LEAKS-25', 'XXXXX'];
+            //const issues = ['HS-LEAKS-25'];
+            const issues = ['XXXXX'];
             result.runs.forEach(run => {
                 run.results = run.results.filter(result => {
                     return !issues.includes(result.ruleId);
