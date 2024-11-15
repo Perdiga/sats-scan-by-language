@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const fs = require('fs');
 const http = require('https');
-const {platform, arch} = require("process");
+var {platform, arch} = require("process");
 
 function download(url, path) {
     const file = fs.createWriteStream(path)
@@ -27,6 +27,10 @@ module.exports = async function () {
 
     const {data: {name, assets, created_at}} = await repos.getLatestRelease({owner, repo});
     core.info(`Using ${name} released at ${created_at}`)
+
+    console.log(assets.toString())
+
+    if(platform == 'linux' && arch == 'x64') {arch = "amd64"}
 
     const asset = assets.find(({name}) => name.includes(`${platform}_${arch}`))
     if (!asset) {
