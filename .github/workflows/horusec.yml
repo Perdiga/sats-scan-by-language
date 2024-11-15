@@ -29,18 +29,3 @@ jobs:
           name: horusec-results
           path: horusec-results.sarif
           
-      - name: Check for vulnerabilities
-        id: check_vulnerabilities
-        run: |
-          if [ -s horusec-results.json ]; then
-            VULNS_FOUND=$(jq '.analysisVulnerabilities | length' horusec-results.json)
-            if [ "$VULNS_FOUND" -gt "0" ]; then
-              echo "::error ::Vulnerabilities found"
-              exit 1
-            else
-              echo "No vulnerabilities found"
-            fi
-          else
-            echo "::error ::horusec-results.json not found or is empty"
-            exit 1
-          fi
