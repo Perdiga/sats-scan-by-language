@@ -1,0 +1,23 @@
+name: Run Custom Horusec Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read  # Required for checking code and triggering events
+  actions: write  # Required for triggering workflows with repository_dispatch
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Custom Horusec
+        uses: ./.github/actions/horusec
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
