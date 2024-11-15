@@ -2,11 +2,11 @@ const github = require('@actions/github');
 const core = require('@actions/core');
 const fs = require("fs");
 
-module.exports = async function(owner,repo,sarifFilePath,checkName) {
+module.exports = async function(githubContext, sarifFilePath,tool_name) {
   try {
     // Initialize Octokit
     const token = core.getInput(`GITHUB_TOKEN`, {required: true});
-    const {rest: {repos,codeScanning}} = github.getOctokit(token)
+    const {rest: {codeScanning}} = github.getOctokit(token)
 
     // Validate SARIF file existence
     if (!fs.existsSync(sarifFilePath)) {
@@ -14,24 +14,16 @@ module.exports = async function(owner,repo,sarifFilePath,checkName) {
     }
 
     // Read SARIF file content
-    const sarifContent = fs.readFileSync(sarifFilePath, "utf8");
-
-    // Get the default branch of the repository
-    const { data: repoDetails } = await repos.get({
-      owner,
-      repo,
-    });
-
-    const defaultBranch = repoDetails.default_branch;
+    const sarif = fs.readFileSync(sarifFilePath, "utf8");
 
     // Upload the SARIF file
     const response = await codeScanning.uploadSarif({
-      owner,
-      repo,
-      ref: `refs/heads/${defaultBranch}`, // Reference to the default branch
-      sarif: sarifContent,
-      commit_sha: repoDetails.pushed_at, // Latest commit SHA
-      tool_name: checkName, // Tool name for the check run
+      owner: githubContext.repo.owner,
+      repo: githubContext.repo.repo,
+      ref: githubContext.ref,
+      sarif,
+      commitSha: githubContext.sha,
+      tool_name
     });
 
     console.log("SARIF file uploaded successfully:", response.data);
