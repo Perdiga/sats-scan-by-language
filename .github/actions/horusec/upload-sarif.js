@@ -1,6 +1,7 @@
 const github = require('@actions/github');
 const core = require('@actions/core');
 const fs = require("fs");
+const zlib = require("zlib");
 
 module.exports = async function(githubContext, sarifFilePath,tool_name) {
   try {
@@ -15,13 +16,15 @@ module.exports = async function(githubContext, sarifFilePath,tool_name) {
 
     // Read SARIF file content
     const sarif = fs.readFileSync(sarifFilePath, "utf8");
+    const gzipContent = zlib.gzipSync(sarifContent);
+    const base64Sarif = gzipContent.toString("base64");
 
     // Upload the SARIF file
     const response = await codeScanning.uploadSarif({
       owner: githubContext.repo.owner,
       repo: githubContext.repo.repo,
       ref: githubContext.ref,
-      sarif,
+      sarif:base64Sarif,
       commit_sha: githubContext.sha,
       tool_name
     });
