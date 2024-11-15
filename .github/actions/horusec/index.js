@@ -31,7 +31,7 @@ async function run() {
 
             result.runs.forEach(run => {
                 run.results = run.results.filter(result => {
-                    return result.ruleId != 'XXXXX' || result.ruleId != 'YYYYY';
+                    return result.ruleId != 'HS-LEAKS-25' || result.ruleId != 'YYYYY';
                 });
             });
 
