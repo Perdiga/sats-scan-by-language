@@ -15,9 +15,9 @@ jobs:
 
       - name: Overwrite Horusec Config with the glogal config
         run: |
-          echo ls
-          cat /src/horusec-config.json
-          cat /src/horusec-config.json > horusec-config.json
+          ls
+          cat /sats-scan-by-language/src/horusec-config.json
+          cat /sats-scan-by-language/src/horusec-config.json > horusec-config.json
           # overwrite old config if it exists.
 
       - name: Running Horusec Security
