@@ -19,7 +19,7 @@ function download(url, path) {
 }
 
 module.exports = async function () {
-    const token = core.getInput(`github-token`, {required: true});
+    const token = core.getInput(`GITHUB_TOKEN`, {required: true});
     const {rest: {repos}} = github.getOctokit(token)
 
     const owner = "ZupIT"

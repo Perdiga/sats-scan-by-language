@@ -4,7 +4,7 @@ const fs = require("fs");
 module.exports = async function(owner,repo,sarifFilePath,checkName) {
   try {
     // Initialize Octokit
-    const token = core.getInput(`github-token`, {required: true});
+    const token = core.getInput(`GITHUB_TOKEN`, {required: true});
     const {rest: {repos}} = github.getOctokit(token)
 
     // Validate SARIF file existence
