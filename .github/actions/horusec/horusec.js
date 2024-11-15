@@ -4,6 +4,9 @@ module.exports = async function(executable, output) {
     return new Promise((resolve, reject) => {
         const args = [
             'start',
+            "-p",
+            ".",
+            "-D",
             `--json-output-file=${output}`,
             '--output-format=sarif',
         ];
