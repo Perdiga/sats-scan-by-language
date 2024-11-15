@@ -7,6 +7,7 @@ const subprocesses = require('child_process');
 const exec = promisify(subprocesses.exec)
 const exists = promisify(fs.exists)
 const read = promisify(fs.readFile)
+const copyFile = promisify(fs.copyFile)
 
 const download = require('./download-horusec');
 const upload = require('./upload-sarif');
@@ -17,7 +18,7 @@ async function run() {
         const executable = await download()
         const output = './result.sarif'
         try {
-            await fs.copyFile("horusec-config.json", "./horusec-config.json", fs.constants.COPYFILE_EXCL);
+            await copyFile("horusec-config.json", "./horusec-config.json", fs.constants.COPYFILE_EXCL);
             await horusec(executable, output);
         } catch (err) {
             core.setFailed(err.message)
