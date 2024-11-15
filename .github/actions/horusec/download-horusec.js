@@ -39,7 +39,7 @@ module.exports = async function () {
     const executable = `./${asset.name}`;
     const start = new Date();
     await download(asset.browser_download_url, executable)
-    fs.copyFile( "horusec-config.json", "./", fs.constants.COPYFILE_EXCL)
+  
     fs.chmodSync(executable, 0o755);
     core.info(`Downloaded in ${(new Date() - start) / 1000}s`)
 
