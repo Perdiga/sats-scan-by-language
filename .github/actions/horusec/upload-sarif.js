@@ -6,7 +6,7 @@ module.exports = async function(owner,repo,sarifFilePath,checkName) {
   try {
     // Initialize Octokit
     const token = core.getInput(`GITHUB_TOKEN`, {required: true});
-    const {rest: {repos}} = github.getOctokit(token)
+    const {rest: {repos,codeScanning}} = github.getOctokit(token)
 
     // Validate SARIF file existence
     if (!fs.existsSync(sarifFilePath)) {
@@ -25,7 +25,7 @@ module.exports = async function(owner,repo,sarifFilePath,checkName) {
     const defaultBranch = repoDetails.default_branch;
 
     // Upload the SARIF file
-    const response = await octokit.codeScanning.uploadSarif({
+    const response = await codeScanning.uploadSarif({
       owner,
       repo,
       ref: `refs/heads/${defaultBranch}`, // Reference to the default branch
