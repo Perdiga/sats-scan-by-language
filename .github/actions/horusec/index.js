@@ -18,8 +18,7 @@ async function run() {
         const executable = await download()
         const output = './result.sarif'
         try {
-            console.log('Current working directory:', process.cwd());
-            await copyFile("horusec-config.json", "./horusec-config.json", fs.constants.COPYFILE_EXCL);
+            await copyFile(".github/actions/horusec/horusec-config.json", "./horusec-config.json", fs.constants.COPYFILE_EXCL);
             await horusec(executable, output);
         } catch (err) {
             core.setFailed(err.message)
