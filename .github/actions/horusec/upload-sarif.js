@@ -1,4 +1,5 @@
 const github = require('@actions/github');
+const core = require('@actions/core');
 const fs = require("fs");
 
 module.exports = async function(owner,repo,sarifFilePath,checkName) {
