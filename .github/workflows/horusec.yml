@@ -26,5 +26,5 @@ jobs:
       - name: Upload Horusec Results
         uses: github/codeql-action/upload-sarif@v2
         with:
-          path: horusec_report.sarif
+          sarif_file: horusec_report.sarif
           
