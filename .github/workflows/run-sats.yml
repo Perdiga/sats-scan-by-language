@@ -27,8 +27,9 @@ jobs:
         run: |
           echo "Should run codeql: ${{ steps.detect.outputs.should-run-codeql }}"
           echo "Should run trivy: ${{ steps.detect.outputs.should-run-trivy }}"
+          echo "Should run horusec: ${{ steps.detect.outputs.should-run-horusec }}"
 
-      - name: Call CodeQL Scan Workflow for JavaScript
+      - name: Call CodeQL Scan Workflow
         if: steps.detect.outputs.should-run-codeql == 'true'      
         run: |
           curl -L \
@@ -39,8 +40,8 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/actions/workflows/codeql.yml/dispatches \
             -d '{"ref":"main"}'
 
-      - name: Call CodeQL Scan Workflow for Python
-        if: steps.detect.outputs.should-run-trivy == 'true'
+      - name: Call Trivy Scan Workflow 
+        if: steps.detect.outputs.should-run-trivy == 'true'      
         run: |
           curl -L \
             -X POST \
@@ -48,4 +49,15 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/${{ github.repository }}/actions/workflows/trivy.yml/dispatches \
+            -d '{"ref":"main"}'
+
+      - name: Call Horusec Scan Workflow
+        if: steps.detect.outputs.should-run-horusec == 'true'
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/horusec.yml/dispatches \
             -d '{"ref":"main"}'

@@ -1,0 +1,48 @@
+name: Horusec Scan
+
+on:
+    workflow_dispatch:
+
+jobs:
+  horusec-security:
+    name: horusec-security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Overwrite Horusec Config with the glogal config
+        run: |
+          echo ls
+          cat /src/horusec-config.json
+          cat /src/horusec-config.json > horusec-config.json
+          # overwrite old config if it exists.
+
+      - name: Running Horusec Security
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+          horusec start -p . -D -o="json" -O="./horusec-results.json"
+    
+      - name: Upload Horusec Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: horusec-results
+          path: horusec-results.json
+          
+      - name: Check for vulnerabilities
+        id: check_vulnerabilities
+        run: |
+          if [ -s horusec-results.json ]; then
+            VULNS_FOUND=$(jq '.analysisVulnerabilities | length' horusec-results.json)
+            if [ "$VULNS_FOUND" -gt "0" ]; then
+              echo "::error ::Vulnerabilities found"
+              exit 1
+            else
+              echo "No vulnerabilities found"
+            fi
+          else
+            echo "::error ::horusec-results.json not found or is empty"
+            exit 1
+          fi

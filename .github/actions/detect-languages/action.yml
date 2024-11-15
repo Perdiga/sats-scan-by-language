@@ -5,6 +5,8 @@ outputs:
     description: 'Flag indicating if CodeQL scan should be run.'
   should-run-trivy:
     description: 'Flag indicating if Trivy scan should be run.'
+  should-run-horusec:
+    description: 'Flag indicating if Horusec scan should be run.'
 runs:
   using: 'node20'
   main: 'index.js'

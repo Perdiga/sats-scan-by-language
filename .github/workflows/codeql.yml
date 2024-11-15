@@ -12,9 +12,6 @@
 name: "CodeQL Scan"
 
 on:
-  repository_dispatch:
-    types: [codeql-scan]
-
   workflow_dispatch:
     inputs:
       query_suite:

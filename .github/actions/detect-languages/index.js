@@ -16,19 +16,23 @@ async function run() {
 
     core.setOutput('should-run-codeql', 'false');
     core.setOutput('should-run-trivy', 'false');
+    core.setOutput('should-run-horusec', 'false');
 
     // Check if Java or JavaScript or Python is detected
     if (languages.hasOwnProperty('Java') || 
         languages.hasOwnProperty('Kotlin') ||
         languages.hasOwnProperty('JavaScript') ||
         languages.hasOwnProperty('TypeScript') ||
-        languages.hasOwnProperty('Python') ||
         languages.hasOwnProperty('Csharp') ) {
         core.setOutput('should-run-codeql', 'true');
     } 
     
     if (languages.hasOwnProperty('Python')) {
         core.setOutput('should-run-trivy', 'true');
+    }
+
+    if (languages.hasOwnProperty('Terraform')) {
+        core.setOutput('should-run-horusec', 'true');
     }
 
     // Set the output variable based on detected language
