@@ -27,11 +27,12 @@ async function run() {
         if (await exists(output)) {
             // You can parse your SARIF file here and maybe remove some false positives
             const raw = await read(output);
-            const result = JSON.parse(raw);
+            var result = JSON.parse(raw);
 
+            const issues = ['HS-LEAKS-25', 'XXXXX'];
             result.runs.forEach(run => {
                 run.results = run.results.filter(result => {
-                    return result.ruleId != 'HS-LEAKS-25' || result.ruleId != 'YYYYY';
+                    return !issues.includes(result.ruleId);
                 });
             });
 
