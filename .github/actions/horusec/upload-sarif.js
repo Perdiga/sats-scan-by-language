@@ -16,7 +16,7 @@ module.exports = async function(githubContext, sarifFilePath,tool_name) {
 
     // Read SARIF file content
     const sarif = fs.readFileSync(sarifFilePath, "utf8");
-    const gzipContent = zlib.gzipSync(sarifContent);
+    const gzipContent = zlib.gzipSync(sarif);
     const base64Sarif = gzipContent.toString("base64");
 
     // Upload the SARIF file
