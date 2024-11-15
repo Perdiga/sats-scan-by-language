@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -24,8 +24,7 @@ jobs:
           horusec start -p . -D -o sarif -O horusec_report.sarif
 
       - name: Upload Horusec Results
-        uses: actions/upload-artifact@v3
+        uses: github/codeql-action/upload-sarif@v2
         with:
-          name: horusec-results
           path: horusec_report.sarif
           
