@@ -19,5 +19,3 @@ jobs:
 
       - name: Run Custom Horusec
         uses: ./.github/actions/horusec
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
